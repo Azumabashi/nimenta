@@ -3,7 +3,7 @@ type
     headline,
     text,
     quote
-  Nimenta = ref object 
+  Nimenta = ref object of RootObj
     content: string
     ctype: ContentType
   Heading = ref object of Nimenta
