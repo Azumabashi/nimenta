@@ -5,3 +5,4 @@ type
     quote
   Nimenta = ref object
     content: string
+    ctype: ContentType
