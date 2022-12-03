@@ -6,3 +6,4 @@ type
   Nimenta* = ref object of RootObj
     content*: string
     ctype*: ContentType
+    level*: int
