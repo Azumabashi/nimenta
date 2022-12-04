@@ -2,6 +2,7 @@ import strutils
 import types
 import patty
 import nimly
+import algorithm
 
 variant Token:
   CHAR(content: string)
@@ -34,5 +35,43 @@ proc syntaxParser*(path: string): seq[Nimenta] =
   var 
     parsed: seq[Nimenta] = @[]
     lexer = Lexer.newWithString(contents)
+    stack: seq[Nimenta] = @[]
+    openedGroup = 0
   for tok in lexer.lexIter:
-    echo tok
+    case tok.kind
+    of TokenKind.COMMAND:
+      let val = Nimenta(
+        content: tok.cmdName,
+        ctype: ContentType.command,
+      )
+      if openedGroup == 0:
+        parsed.add(val)
+      else:
+        stack.add(val)
+    of TokenKind.CHAR:
+      let val = Nimenta(
+        content: tok.content,
+        ctype: ContentType.text,
+      )
+      if openedGroup == 0:
+        parsed.add(val)
+      else:
+        stack.add(val)
+    of TokenKind.LGROUP:
+      openedGroup += 1
+      stack.add(Nimenta(
+        ctype: ContentType.openGroup
+      ))
+    of TokenKind.RGROUP:
+      openedGroup -= 1
+      var val = Nimenta(
+        ctype: ContentType.group
+      )
+      while stack[stack.len - 1].ctype != ContentType.openGroup:
+        val.inGroup.add(stack.pop())
+      val.inGroup.reverse()
+      discard stack.pop()  # discard openGroup
+      parsed.add(val)
+    of TokenKind.IGNORE:
+      discard  # do nothing
+  return parsed
