@@ -13,13 +13,13 @@ variant Token:
   IGNORE
 
 niml Lexer[Token]:
-  r"\\\w*;":
+  r"@\w*;":
     return CMDWITHOUTARGS(token.token)
-  r"\\\w*":
+  r"@\w*":
     return COMMAND(token.token)
-  r"\{":
+  r"\(":
     return LGROUP()
-  r"}":
+  r"\)":
     return RGROUP()
   "\n":
     return IGNORE()
