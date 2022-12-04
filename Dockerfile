@@ -6,4 +6,4 @@ RUN apt-get update \
   && apt-get -y upgrade \
   && apt-get -y install gcc make pkg-config
 
-RUN nimble install -y nimly
+RUN nimble install -y nimly patty nimpdf
