@@ -22,4 +22,8 @@ proc getContent(path: string): string =
 
 proc syntaxParser*(path: string): seq[Nimenta] = 
   let contents = path.getContent
-  var parsed: seq[Nimenta] = @[]
+  var 
+    parsed: seq[Nimenta] = @[]
+    lexer = Lexer.newWithString(contents)
+  for tok in lexer.lexIter:
+    echo tok
