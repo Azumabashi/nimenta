@@ -1,10 +1,17 @@
 import strutils
 import types
 import patty
+import nimly
 
 variant Token:
   CHAR(content: string)
   COMMAND(name: string)
+
+niml Lexer[Token]:
+  r"\\w*":
+    return COMMAND(token.token)
+  r".":
+    return CHAR(token.token)
   
 
 proc getContent(path: string): seq[string] = 
