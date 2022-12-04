@@ -46,6 +46,7 @@ proc syntaxParser*(path: string): seq[Nimenta] =
       let val = Nimenta(
         content: if tok.kind == TokenKind.Command: tok.cmdName else: tok.cmdWithoutArgsName[0..tok.cmdWithoutArgsName.len-2],
         ctype: if tok.kind == TokenKind.Command: ContentType.command else: ContentType.commandWithoutArgs,
+        style: Style.default,
       )
       if openedGroup == 0:
         parsed.add(val)
@@ -55,6 +56,7 @@ proc syntaxParser*(path: string): seq[Nimenta] =
       let val = Nimenta(
         content: tok.content,
         ctype: ContentType.text,
+        style: Style.default,
       )
       if openedGroup == 0:
         parsed.add(val)
@@ -63,12 +65,14 @@ proc syntaxParser*(path: string): seq[Nimenta] =
     of TokenKind.LGROUP:
       openedGroup += 1
       stack.add(Nimenta(
-        ctype: ContentType.openGroup
+        ctype: ContentType.openGroup,
+        style: Style.default,
       ))
     of TokenKind.RGROUP:
       openedGroup -= 1
       var val = Nimenta(
-        ctype: ContentType.group
+        ctype: ContentType.group,
+        style: Style.default,
       )
       while stack[stack.len - 1].ctype != ContentType.openGroup:
         val.inGroup.add(stack.pop())
