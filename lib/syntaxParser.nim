@@ -5,7 +5,7 @@ import nimly
 
 variant Token:
   CHAR(content: string)
-  COMMAND(name: string)
+  COMMAND(cmdName: string)
 
 niml Lexer[Token]:
   r"\\\w*":
