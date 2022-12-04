@@ -6,10 +6,19 @@ import nimly
 variant Token:
   CHAR(content: string)
   COMMAND(cmdName: string)
+  LGROUP
+  RGROUP
+  IGNORE
 
 niml Lexer[Token]:
   r"\\\w*":
     return COMMAND(token.token)
+  r"\{":
+    return LGROUP()
+  r"}":
+    return RGROUP()
+  r"\\n":
+    return IGNORE()
   r".":
     return CHAR(token.token)
   
