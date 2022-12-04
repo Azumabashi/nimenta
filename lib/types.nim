@@ -1,6 +1,7 @@
 type
   ContentType* {.pure.} = enum
     command,
+    commandWithoutArgs,
     text,
     quote,
     group,
