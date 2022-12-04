@@ -23,6 +23,8 @@ niml Lexer[Token]:
     return RGROUP()
   r"\\n":
     return IGNORE()
+  r"[亜-熙ぁ-んァ-ヶ．][亜-熙ぁ-んァ-ヶ．][亜-熙ぁ-んァ-ヶ．]":
+    return CHAR(token.token)
   r".":
     return CHAR(token.token)
   
