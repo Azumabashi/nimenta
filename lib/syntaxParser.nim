@@ -1,5 +1,11 @@
 import strutils
 import types
+import patty
+
+variant Token:
+  CHAR(content: string)
+  COMMAND(name: string)
+  
 
 proc getContent(path: string): seq[string] = 
   var file = open(path, FileMode.fmRead)
