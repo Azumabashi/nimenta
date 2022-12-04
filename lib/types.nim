@@ -1,8 +1,10 @@
 type
   ContentType* {.pure.} = enum
-    headline,
+    command,
     text,
-    quote
+    quote,
+    group,
+    openGroup
   Nimenta* = ref object of RootObj
     content*: string
     ctype*: ContentType
