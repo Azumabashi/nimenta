@@ -8,7 +8,7 @@ variant Token:
   COMMAND(name: string)
 
 niml Lexer[Token]:
-  r"\\w*":
+  r"\\\w*":
     return COMMAND(token.token)
   r".":
     return CHAR(token.token)
