@@ -1,2 +1,2 @@
 const
-  csBegin = "\\"
+  csBegin* = "\\"
