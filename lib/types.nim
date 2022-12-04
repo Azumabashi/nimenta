@@ -13,3 +13,4 @@ type
     content*: string
     ctype*: ContentType
     inGroup*: seq[Nimenta]
+    style*: Style
