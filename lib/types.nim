@@ -6,6 +6,9 @@ type
     quote,
     group,
     openGroup
+  Style* {.pure.} = enum
+    default
+    bold
   Nimenta* = ref object of RootObj
     content*: string
     ctype*: ContentType
