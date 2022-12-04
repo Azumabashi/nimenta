@@ -1,0 +1,7 @@
+services:
+  container:
+    build:
+      context: .
+    volumes:
+      - .:/workspace
+    tty: true
