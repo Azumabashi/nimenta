@@ -74,7 +74,10 @@ proc syntaxParser*(path: string): seq[Nimenta] =
         val.inGroup.add(stack.pop())
       val.inGroup.reverse()
       discard stack.pop()  # discard openGroup
-      parsed.add(val)
+      if openedGroup == 0:
+        parsed.add(val)
+      else:
+        stack.add(val)
     of TokenKind.IGNORE:
       discard  # do nothing
   return parsed
