@@ -14,11 +14,11 @@ niml Lexer[Token]:
     return CHAR(token.token)
   
 
-proc getContent(path: string): seq[string] = 
+proc getContent(path: string): string = 
   var file = open(path, FileMode.fmRead)
   defer:
     close(file)
-  result = file.readAll().split("\n")
+  result = file.readAll()
 
 proc syntaxParser*(path: string): seq[Nimenta] = 
   let contents = path.getContent
