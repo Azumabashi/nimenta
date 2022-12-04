@@ -7,11 +7,14 @@ import algorithm
 variant Token:
   CHAR(content: string)
   COMMAND(cmdName: string)
+  CMDWITHOUTARGS(cmdWithoutArgsName: string)
   LGROUP
   RGROUP
   IGNORE
 
 niml Lexer[Token]:
+  r"\\\w*;":
+    return CMDWITHOUTARGS(token.token)
   r"\\\w*":
     return COMMAND(token.token)
   r"\{":
@@ -39,10 +42,10 @@ proc syntaxParser*(path: string): seq[Nimenta] =
     openedGroup = 0
   for tok in lexer.lexIter:
     case tok.kind
-    of TokenKind.COMMAND:
+    of TokenKind.COMMAND, TokenKind.CMDWITHOUTARGS:
       let val = Nimenta(
-        content: tok.cmdName,
-        ctype: ContentType.command,
+        content: if tok.kind == TokenKind.Command: tok.cmdName else: tok.cmdWithoutArgsName[0..tok.cmdWithoutArgsName.len-2],
+        ctype: if tok.kind == TokenKind.Command: ContentType.command else: ContentType.commandWithoutArgs,
       )
       if openedGroup == 0:
         parsed.add(val)
