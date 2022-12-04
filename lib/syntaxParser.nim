@@ -21,7 +21,7 @@ niml Lexer[Token]:
     return LGROUP()
   r"}":
     return RGROUP()
-  r"\\n":
+  "\n":
     return IGNORE()
   r"[亜-熙ぁ-んァ-ヶ．][亜-熙ぁ-んァ-ヶ．][亜-熙ぁ-んァ-ヶ．]":
     return CHAR(token.token)
