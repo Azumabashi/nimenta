@@ -14,3 +14,7 @@ type
     ctype*: ContentType
     inGroup*: seq[Nimenta]
     style*: Style
+  NimentaNodeKind* {.pure.} = enum
+    nnkDocumentClass
+    nnkUsePackage
+    nnkDocument
